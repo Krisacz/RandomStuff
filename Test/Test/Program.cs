@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Test
@@ -18,11 +19,24 @@ namespace Test
             //var inputStr = "AB>CC>FD>AE>BF"; //Result: AFCBDE
             //var inputStr = "ABC>C"; //Result: error - job can not depend on itself
             //var inputStr = "AB>CC>FD>AEF>B"; //Result: eror - circular dependenties
+            
+            for (int i = 0; i <= 10; i++)
+            {
+                var inputString = GenerateRandomInputString(i);
+                Console.WriteLine($"Input string [Count: {i}]: \t {inputString}");
+                var resultString = Process(inputString, true);
+                Console.WriteLine($"Result string: {resultString}");
+                Console.WriteLine();
+                Console.WriteLine("------------------------------------------------------------------------------------------");
+            }
 
+            /*
             var inputStr = "AB>CC>FD>AE>BF";
             Console.WriteLine($"Input string: {inputStr}");            
             var resultString = Process(inputStr, true);
             Console.WriteLine($"Result string: {resultString}");
+            */
+
             Console.ReadKey();
         }
 
@@ -172,9 +186,17 @@ namespace Test
                     sortedJobs.RemoveAt(jobIndex);
                     sortedJobs.Insert(newJobIndex, t);
                 }
-            }            
+            }
             #endregion
 
+
+            //And finally - convert sorted list to output string
+            #region CONVERT SORTED LIST
+            var outputString = string.Join(string.Empty, sortedJobs.Select(x=>x.Item1));            
+            #endregion
+
+
+            //Debug info
             #region ADDITIONAL DEBUG OUTPUT
             if(additionalDebugOutput)
             {
@@ -201,7 +223,54 @@ namespace Test
             }
             #endregion
 
-            return inputStr;
+            return outputString;
+        }
+
+        private static string GenerateRandomInputString(int count, int dependencyChance = 25)
+        {
+            //Init
+            var allJobs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToList();
+            var random = new Random(Guid.NewGuid().GetHashCode()); //to make it even more random
+            var finalString = string.Empty;
+
+            //First generate list of jobs based on count
+            var selectedJobs = new List<string>();
+            for(var i = 1; i <= count; i++)
+            {
+                var randomIndex = random.Next(allJobs.Count);
+                var randomJob = allJobs[randomIndex];
+                allJobs.RemoveAt(randomIndex);
+                selectedJobs.Add(randomJob.ToString());
+            }
+
+            //Now create final string while randomly adding dependency            
+            foreach(var job in selectedJobs)
+            {
+                var randomChance = random.Next(101);
+                if(count > 1 && randomChance <= dependencyChance)
+                {
+                    var found = false;
+                    var dependencyJob = string.Empty;
+                    while(!found)
+                    {
+                        var randomIndex = random.Next(selectedJobs.Count);
+                        var randomJob = selectedJobs[randomIndex];
+                        if(randomJob != job)
+                        {
+                            dependencyJob = randomJob;
+                            found = true;
+                        }
+                    }
+                    finalString += string.Format("{0}>{1}", job, dependencyJob);
+                }
+                else
+                {
+                    finalString += job;
+                }
+            }
+
+            //Output
+            return finalString;
         }
     }
 }
