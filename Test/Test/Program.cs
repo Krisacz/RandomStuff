@@ -11,7 +11,15 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            var inputStr = "B>AA>CC";
+            //var inputStr = ""; //Result: empty set
+            //var inputStr = "A"; //Result: A
+            //var inputStr = "ABC"; //Result: ABC
+            //var inputStr = "AB>CC"; //Result: ACB
+            //var inputStr = "AB>CC>FD>AE>BF"; //Result: AFCBDE
+            //var inputStr = "ABC>C"; //Result: error - job can not depend on itself
+            //var inputStr = "AB>CC>FD>AEF>B"; //Result: eror - circular dependenties
+
+            var inputStr = "AB>CC>FD>AE>BF";
             Console.WriteLine($"Input string: {inputStr}");            
             var resultString = Process(inputStr, true);
             Console.WriteLine($"Result string: {resultString}");
@@ -31,7 +39,7 @@ namespace Test
             if(multiDependencyCharacter.IsMatch(inputStr)) return "ERROR: Incorrect input string. Dependency character used multiple times in a row.";
 
             //Last character is ">"
-            if (inputStr[inputStr.Length - 1] == '>') return "ERROR: Incorrect input string. Missing dependency task. Input string ends with \">\".";
+            if (inputStr.Length > 0 && inputStr[inputStr.Length - 1] == '>') return "ERROR: Incorrect input string. Missing dependency task. Input string ends with \">\".";
             #endregion
 
 
@@ -121,34 +129,50 @@ namespace Test
             #endregion
 
 
-            #region RE-ORDER JOBS
+            //Sort all jobs
+            #region SORT JOBS
             //Mirror tokens list - this is the one we will be modifying as we can not modify an array while we are looping through it
             var sortedJobs = new List<Tuple<string, string>>(tokens);
 
-            foreach (var t in tokens)
+            //We could fully sort it by either "running" through all tokens twice or one decremental "run"
+            for(var a = tokens.Count - 1; a >= 0; a--)
             {
+                var t = tokens[a];
                 var job = t.Item1;
                 var dependencyJob = t.Item2;
                 var jobIndex = sortedJobs.IndexOf(t);
 
                 //If job does't have dependency job check if any other jobs depends on it and place it before it (lowest possible index)
                 if (string.IsNullOrWhiteSpace(dependencyJob))
-                {                    
+                {
                     //Initialize with maximum index
                     var minimumIndex = tokens.Count - 1;
                     for (var i = 0; i < sortedJobs.Count; i++)
-                    {                        
+                    {
                         var dependencyJob1 = sortedJobs[i].Item2;
                         if (string.Equals(job, dependencyJob1)) minimumIndex = Math.Min(minimumIndex, i);
                     }
-                                        
+
                     var newJobIndex = Math.Min(jobIndex, minimumIndex);
                     sortedJobs.RemoveAt(jobIndex);
                     sortedJobs.Insert(newJobIndex, t);
-
-                    continue;
                 }
-            }
+                //...otherwise place current job after job it depends on
+                else
+                {
+                    //Initialize with maximum index
+                    var maximumIndex = 0;
+                    for (var i = 0; i < sortedJobs.Count; i++)
+                    {
+                        var job2 = sortedJobs[i].Item1;
+                        if (string.Equals(dependencyJob, job2)) maximumIndex = Math.Max(maximumIndex, i);
+                    }
+
+                    var newJobIndex = Math.Max(jobIndex, maximumIndex);
+                    sortedJobs.RemoveAt(jobIndex);
+                    sortedJobs.Insert(newJobIndex, t);
+                }
+            }            
             #endregion
 
             #region ADDITIONAL DEBUG OUTPUT
@@ -165,7 +189,7 @@ namespace Test
                 };
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("\tRE-ORDERED JOBS");
+                Console.WriteLine("\tSORTED JOBS");
                 Console.WriteLine("\t--------------");
                 foreach (var t in sortedJobs)
                 {
