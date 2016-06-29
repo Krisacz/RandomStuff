@@ -1,0 +1,8 @@
+Console.Write("Hi! Press any key: ");
+var a = Console.ReadKey();
+Console.WriteLine();
+Console.WriteLine("You pressed: " + a.Key + " key");
+Console.WriteLine();
+Console.WriteLine("And here is for loop from 1 to 100:");
+Console.ReadKey();
+for(var i = 1; i <= 100; i++) Console.Write(string.Format("{0} ", i));
