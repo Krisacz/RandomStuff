@@ -18,11 +18,25 @@ namespace Test
             //var inputStr = "AB>CC>FD>AEF>B"; //Result: eror - circular dependenties
 
 
-            var inputStr = GenerateRandomInputString(26, 50);
-            Console.WriteLine($"Input string: {inputStr}");
-            var resultString = Process(inputStr, true);
-            Console.WriteLine($"Result string: {resultString}");
-            
+            //var inputStr = GenerateRandomInputString(26, 50);
+            //Console.WriteLine($"Input string: {inputStr}");
+            //var resultString = Process(inputStr, true);
+            //Console.WriteLine($"Result string: {resultString}");
+
+            var start = DateTime.Now;
+            Test("");
+            Test("A");
+            Test("ABC");
+            Test("AB>CC");
+            Test("AB>CC>FD>AE>BF");
+            Test("ABC>C");
+            Test("AB>CC>FD>AEF>B");
+            var stop = DateTime.Now;
+            var timeTaken = stop - start;
+            Console.WriteLine(timeTaken);
+
+
+
 
 
             //Stress test
@@ -44,6 +58,17 @@ namespace Test
             Console.WriteLine("################################################");
             Console.WriteLine("Done!");
             Console.ReadKey();
+        }
+
+        private static void Test(string s)
+        {
+            var start = DateTime.Now;
+            Console.WriteLine($"Input string: \t {s}");
+            var resultString = Process(s, false);
+            var end = DateTime.Now - start;
+            Console.WriteLine($"Result string: {resultString}");
+            Console.WriteLine($"Duration: {end}");
+            Console.WriteLine();
         }
 
         private static string Process(string inputStr, bool additionalDebugOutput = false)
