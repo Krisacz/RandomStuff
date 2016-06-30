@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C411A7F-F79A-40E5-A299-44FC6F7AC64B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{953D50DC-F465-4B73-9735-772790F32A39}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LifesGreat.RealSolution.Lib</RootNamespace>
-    <AssemblyName>LifesGreat.RealSolution.Lib</AssemblyName>
+    <RootNamespace>LifesGreat.RealSolution.ConsoleTester</RootNamespace>
+    <AssemblyName>LifesGreat.RealSolution.ConsoleTester</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,23 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Flow\FlowManager.cs" />
-    <Compile Include="Flow\IFlowManager.cs" />
-    <Compile Include="Parser\IParser.cs" />
-    <Compile Include="Job\JobCollection.cs" />
-    <Compile Include="Parser\InputStringParser.cs" />
-    <Compile Include="Parser\JobCollectionParser.cs" />
-    <Compile Include="Sort\IJobSorter.cs" />
-    <Compile Include="Sort\JobCollectionSorter.cs" />
-    <Compile Include="Validation\IInputValidator.cs" />
-    <Compile Include="Validation\IJobsValidator.cs" />
-    <Compile Include="Validation\InputStringValidator.cs" />
-    <Compile Include="Log\FileLogger.cs" />
-    <Compile Include="Log\ConsoleLogger.cs" />
-    <Compile Include="Log\ILogger.cs" />
-    <Compile Include="Job\JobObject.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\JobCollectionValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LifesGreat.RealSolution.Lib\LifesGreat.RealSolution.Lib.csproj">
+      <Project>{1c411a7f-f79a-40e5-a299-44fc6f7ac64b}</Project>
+      <Name>LifesGreat.RealSolution.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

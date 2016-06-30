@@ -4,7 +4,7 @@ using LifesGreat.RealSolution.Lib.Log;
 
 namespace LifesGreat.RealSolution.Lib.Parser
 {
-    public class InputStringParser : IInputParser<string, JobCollection<JobObject>>
+    public class InputStringParser : IParser<string, JobCollection<JobObject>>
     {
         private readonly ILogger _logger;
 
@@ -13,7 +13,7 @@ namespace LifesGreat.RealSolution.Lib.Parser
             _logger = logger;
         }
 
-        public JobCollection<JobObject> Parse(string inputString)
+        public JobCollection<JobObject> Parse(string input)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace LifesGreat.RealSolution.Lib.Parser
                 var skipChar = 0;
 
                 //Loop through all character in the inputString 
-                for (var i = 0; i < inputString.Length; i++)
+                for (var i = 0; i < input.Length; i++)
                 {
                     //Skip character if we've added dependent job in previous loop cycle(s)
                     if (skipChar > 0)
@@ -31,15 +31,15 @@ namespace LifesGreat.RealSolution.Lib.Parser
                     }
 
                     //Add new token - job and it's dependent job (if any)
-                    var job = inputString[i].ToString();
+                    var job = input[i].ToString();
                     var dependentJob = string.Empty;
 
                     //Check if further down the string there is current's job dependency                
-                    if (i + 1 < inputString.Length - 1)
+                    if (i + 1 < input.Length - 1)
                     {
-                        if (inputString[i + 1] == '>')
+                        if (input[i + 1] == '>')
                         {
-                            dependentJob = inputString[i + 2].ToString();
+                            dependentJob = input[i + 2].ToString();
                             skipChar = 2;
                         }
                     }

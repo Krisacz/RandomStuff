@@ -9,61 +9,72 @@ namespace LifesGreat.SimpleConsole
     {
         private static void Main(string[] args)
         {
-            #region MAIN TEST
-            //var start = DateTime.Now;
-            //Test("", "");
-            //Test("A", "A");
-            //Test("ABC", "ABC");
-            //Test("AB>CC", "ACB");
-            //Test("AB>CC>FD>AE>BF", "AFCBDE");
-            //Test("ABC>C", null);
-            //Test("AB>CC>FD>AEF>B", null);
-            //var stop = DateTime.Now;
-            //var timeTaken = stop - start;
-            //Console.WriteLine("------------------------------");
-            //Console.WriteLine($"Total duration: {timeTaken}");
-            //Console.ReadKey();
-            #endregion
+            const TesType testType = TesType.Main;
+            switch (testType)
+            {
+                case TesType.Main:
+                    #region MAIN TEST
+                    var start = DateTime.Now;
+                    Test("", "");
+                    Test("A", "A");
+                    Test("ABC", "ABC");
+                    Test("AB>CC", "ACB");
+                    Test("AB>CC>FD>AE>BF", "AFCBDE");
+                    Test("ABC>C", null);
+                    Test("AB>CC>FD>AEF>B", null);
+                    var stop = DateTime.Now;
+                    var timeTaken = stop - start;
+                    Console.WriteLine("------------------------------");
+                    Console.WriteLine($"Total duration: {timeTaken}");
+                    Console.ReadKey();
+                    #endregion
+                    break;
 
-            #region SIMPLE TEST - NO CONSOLE FORMAT
-            //Simple test
-            var simpleStart = DateTime.Now;
-            SimpleTest("");
-            SimpleTest("A");
-            SimpleTest("ABC");
-            SimpleTest("AB>CC");
-            SimpleTest("AB>CC>FD>AE>BF");
-            SimpleTest("ABC>C");
-            SimpleTest("AB>CC>FD>AEF>B");
-            var simpleEnd = DateTime.Now - simpleStart;
-            Console.WriteLine($"Total Duration: {simpleEnd}");
-            Console.ReadKey();
-            #endregion
+                case TesType.Simple:
+                    #region SIMPLE TEST - NO CONSOLE FORMAT
+                    var simpleStart = DateTime.Now;
+                    SimpleTest("");
+                    SimpleTest("A");
+                    SimpleTest("ABC");
+                    SimpleTest("AB>CC");
+                    SimpleTest("AB>CC>FD>AE>BF");
+                    SimpleTest("ABC>C");
+                    SimpleTest("AB>CC>FD>AEF>B");
+                    var simpleEnd = DateTime.Now - simpleStart;
+                    Console.WriteLine($"Total Duration: {simpleEnd}");
+                    Console.ReadKey();
+                    #endregion
+                    break;
 
-            #region STRESS TEST WITH RANDOMLY GENERATED INPUT
-            ////Stress test
-            //for (var x = 0; x < 10; x++)
-            //{
-            //    for (var i = 0; i <= 10; i++)
-            //    {
-            //        var inputString = GenerateRandomInputString(i, 50);
-            //        Console.WriteLine($"Input string [Count: {i}]: \t {inputString}");
-            //        var resultString = Process(inputString, true);
-            //        Console.WriteLine($"Result string: {resultString}");
-            //        Console.WriteLine();
-            //        Console.WriteLine("------------------------------------------------------------------------------------------");
-            //    }
-            //}
-            //Console.ReadKey();
-            #endregion
+                case TesType.Stress:
+                    #region STRESS TEST WITH RANDOMLY GENERATED INPUT
+                    for (var x = 0; x < 10; x++)
+                    {
+                        for (var i = 0; i <= 10; i++)
+                        {
+                            var inputString = GenerateRandomInputString(i, 50);
+                            Console.WriteLine($"Input string [Count: {i}]: \t {inputString}");
+                            var resultString = Process(inputString, true);
+                            Console.WriteLine($"Result string: {resultString}");
+                            Console.WriteLine();
+                            Console.WriteLine("------------------------------------------------------------------------------------------");
+                        }
+                    }
+                    Console.ReadKey();
+                    #endregion
+                    break;
+
+                default:    throw new ArgumentOutOfRangeException();
+            }
         }
 
         #region PROCESS JOBS
+
         private static string Process(string inputStr, bool additionalDebugOutput = false)
         {
             try
             {
-                //First let's make sure that passed string will pass initial validation           
+                //First let's make sure that passed string will pass initial validation        
                 #region INPUT STRING VALIDATION
 
                 //Accept only A-Z letters ("jobs") and dependency character ">"
@@ -85,7 +96,6 @@ namespace LifesGreat.SimpleConsole
                     return "ERROR: Incorrect input string. Missing dependent job. Input string ends with \">\".";
 
                 #endregion
-
 
                 //Once we've validated input string lets "tokenize" our string in to usable "jobs" and their dependencies (if any)
                 #region TOKENS
@@ -125,7 +135,6 @@ namespace LifesGreat.SimpleConsole
 
                 #endregion
 
-
                 //Now we have have "converted" input string into usable list - let's validate all tokens
                 #region TOKENS VALIDATION
 
@@ -150,7 +159,7 @@ namespace LifesGreat.SimpleConsole
                     #region JOB DEPENDS ON IT SELF
 
                     if (string.Equals(job1, dependentJob1))
-                        return $"ERROR: Job can not depends on itself. [{job1} > {dependentJob1}]";
+                        return $"ERROR: Job can not depend on itself. [{job1} > {dependentJob1}]";
 
                     #endregion
 
@@ -189,7 +198,6 @@ namespace LifesGreat.SimpleConsole
                 }
 
                 #endregion
-
 
                 //Sort all jobs
                 #region SORT JOBS
@@ -249,14 +257,12 @@ namespace LifesGreat.SimpleConsole
 
                 #endregion
 
-
                 //And finally - convert sorted list to output string
                 #region CONVERT SORTED LIST
 
                 var outputString = string.Join(string.Empty, sortedJobs.Select(x => x.Item1));
 
                 #endregion
-
 
                 //Debug info
                 #region ADDITIONAL DEBUG OUTPUT
@@ -281,7 +287,6 @@ namespace LifesGreat.SimpleConsole
 
                 #endregion
 
-
                 return outputString;
             }
             catch (Exception ex)
@@ -291,9 +296,11 @@ namespace LifesGreat.SimpleConsole
 
             return null;
         }
+
         #endregion
 
         #region SIMPLE TEST
+
         private static void SimpleTest(string inputString, bool silent = false)
         {
             if (silent)
@@ -307,9 +314,11 @@ namespace LifesGreat.SimpleConsole
                 Console.WriteLine();
             }
         }
+
         #endregion
 
         #region TEST
+
         private static void Test(string inputString, string expectedResult, bool additionalDebugOutput = false)
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -345,9 +354,11 @@ namespace LifesGreat.SimpleConsole
 
             Console.WriteLine();
         }
+
         #endregion
 
         #region RANDOM INPUT STRING GENERATOR
+
         private static string GenerateRandomInputString(int count, int dependencyChance = 25)
         {
             try
@@ -405,6 +416,18 @@ namespace LifesGreat.SimpleConsole
 
             return string.Empty;
         }
+
+        #endregion
+
+        #region TEST TYPE
+
+        private enum TesType
+        {
+            Main,
+            Simple,
+            Stress
+        }
+
         #endregion
     }
 }
