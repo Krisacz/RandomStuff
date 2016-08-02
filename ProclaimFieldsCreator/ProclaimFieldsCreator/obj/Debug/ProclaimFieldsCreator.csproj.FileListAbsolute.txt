@@ -1,0 +1,11 @@
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\bin\Debug\ProclaimFieldsCreator.exe.config
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\bin\Debug\ProclaimFieldsCreator.exe
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\bin\Debug\ProclaimFieldsCreator.pdb
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.csprojResolveAssemblyReference.cache
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.Form1.resources
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.Properties.Resources.resources
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.csproj.GenerateResource.Cache
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.exe
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\obj\Debug\ProclaimFieldsCreator.pdb
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\bin\Debug\WindowsInput.dll
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\ProclaimFieldsCreator\ProclaimFieldsCreator\bin\Debug\WindowsInput.xml
