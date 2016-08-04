@@ -1,0 +1,6 @@
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\bin\Debug\UBackup.exe.config
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\bin\Debug\UBackup.exe
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\bin\Debug\UBackup.pdb
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\obj\Debug\UBackup.exe
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\obj\Debug\UBackup.pdb
+C:\Users\k.sowinski\Desktop\ProclaimDev\RandomStuff\UBackup\UBackup\bin\Debug\Topshelf.dll
